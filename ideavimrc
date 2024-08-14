@@ -1,0 +1,40 @@
+let mapleader=" "
+
+" plugins
+set NERDTree
+set surround
+let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+let g:highlightedyank_highlight_duration = "150"
+set highlightedyank
+
+map gq <Action>(ReformatCode)
+map <leader>d <Action>(Debug)
+map <leader>vrn <Action>(RenameElement)
+map <leader>vca <Action>(ShowIntentionActions)
+map <leader>ps <Action>(FindInPath)
+map <leader>pf <Action>(GotoFile)
+map <leader>pv <Action>(ActivateProjectToolWindow)
+map <leader>c <Action>(Stop)
+map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>f <Action>(ReformatWithPrettierAction)
+
+map <leader>s <Action>(SelectInProjectView)
+map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
+map <S-Space> <Action>(GotoNextError)
+map <C-h> <Action>(ParameterInfo)
+map K <Action>(ShowHoverInfo)
+
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>o <Action>(FileStructurePopup)
+map <leader>gs <Action>(ActivateCommitToolWindow)
+map <leader>gt <Action>(ActivateVersionControlToolWindow)
+map <leader>tt <Action>(ActivateProblemsViewToolWindow)
+
+map <C-s> <Action>(ActivateBookmarksToolWindow)
+vmap J :m '>+1<CR>gv=gv
+vmap K :m '>-2<CR>gv=gv
+
+
+set relativenumber
+set scrolloff=8
+set number

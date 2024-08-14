@@ -1,0 +1,14 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ["~"]
+
+- link:
+    ~/.config/nvim:
+    ~/.config/kitty:
+    ~/.ideavimrc:
+
+- create:
+    - ~/.config
+
