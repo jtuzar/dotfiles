@@ -35,6 +35,5 @@ vmap J :m '>+1<CR>gv=gv
 vmap K :m '>-2<CR>gv=gv
 
 
-set relativenumber
 set scrolloff=8
 set number

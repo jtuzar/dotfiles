@@ -4,7 +4,6 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig",
-			"neovim/nvim-lspconfig",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
@@ -13,13 +12,15 @@ return {
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"j-hui/fidget.nvim",
-			"rshkarin/mason-nvim-lint",
 			"mfussenegger/nvim-lint",
+			"roobert/tailwindcss-colorizer-cmp.nvim",
+			"onsails/lspkind.nvim",
 		},
 		config = function()
 			require("fidget").setup({})
 			local cmp = require("cmp")
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
+			local lspkind_format = require("lspkind").cmp_format()
 
 			cmp.setup({
 				snippet = {
@@ -39,6 +40,12 @@ return {
 				}, {
 					{ name = "buffer" },
 				}),
+				formatting = {
+					format = function(entry, item)
+						lspkind_format(entry, item)
+						return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+					end,
+				},
 			})
 
 			require("mason").setup()
@@ -73,7 +80,6 @@ return {
 					end,
 				},
 			})
-			require("mason-nvim-lint").setup()
 
 			vim.diagnostic.config({
 				update_on_insert = true,
