@@ -48,16 +48,25 @@ return {
 				},
 			})
 
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+			-- Capabilities required for the visualstudio lsps (css, html, etc)
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
 					"ts_ls",
 					"angularls",
+					"gopls",
+					"tailwindcss",
+					"html",
+					"omnisharp",
 				},
 				handlers = {
 					function(server_name)
-						require("lspconfig")[server_name].setup({})
+						require("lspconfig")[server_name].setup({ capabilities = capabilities })
 					end,
 					["lua_ls"] = function()
 						local lspconfig = require("lspconfig")

@@ -16,6 +16,6 @@ return {
 		vim.g.neoformat_enabled_typescriptreact = { "prettier" }
 		vim.g.neoformat_enabled_vue = { "prettier" }
 		vim.g.neoformat_enabled_lua = { "stylua" }
-		vim.g.neoformat_run_on_save = 1
+		vim.g.neoformat_enabled_templ = { "templ_fmt" }
 	end,
 }

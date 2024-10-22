@@ -6,6 +6,7 @@ set surround
 let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
 let g:highlightedyank_highlight_duration = "150"
 set highlightedyank
+:set relativenumber
 
 map gq <Action>(ReformatCode)
 map <leader>d <Action>(Debug)
