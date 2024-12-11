@@ -1,5 +1,5 @@
 # BEGIN_KITTY_THEME
-# Catppuccin-Latte
+# Catppuccin-Frappe
 include current-theme.conf
 # END_KITTY_THEME
 tab_bar_min_tabs            1
@@ -12,4 +12,4 @@ font_family Fira Code
 
 background_image /Users/cen55153/MyGit/dotfiles/kitty/gandalf_balrog.png
 background_image_layout centered
-background_tint 0.96
+background_tint 0.8

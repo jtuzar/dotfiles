@@ -58,11 +58,10 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					"ts_ls",
-					"angularls",
 					"gopls",
 					"tailwindcss",
 					"html",
-					"omnisharp",
+					"denols",
 				},
 				handlers = {
 					function(server_name)
@@ -85,6 +84,19 @@ return {
 						local lspconfig = require("lspconfig")
 						lspconfig.angularls.setup({
 							root_dir = util.root_pattern("angular.json", "project.json"),
+						})
+					end,
+					["denols"] = function()
+						local nvim_lsp = require("lspconfig")
+						nvim_lsp.denols.setup({
+							root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+						})
+					end,
+					["ts_ls"] = function()
+						local nvim_lsp = require("lspconfig")
+						nvim_lsp.ts_ls.setup({
+							root_dir = nvim_lsp.util.root_pattern("package.json"),
+							single_file_support = false,
 						})
 					end,
 				},
