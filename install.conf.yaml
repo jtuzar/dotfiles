@@ -6,7 +6,7 @@
 
 - link:
     ~/.config/nvim:
-    ~/.config/kitty:
+    ~/.config/ghostty:
     ~/.ideavimrc:
 
 - create:

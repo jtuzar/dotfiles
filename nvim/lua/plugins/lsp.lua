@@ -58,10 +58,10 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					"ts_ls",
-					"gopls",
 					"tailwindcss",
 					"html",
 					"denols",
+                    "gopls"
 				},
 				handlers = {
 					function(server_name)
@@ -77,13 +77,6 @@ return {
 									},
 								},
 							},
-						})
-					end,
-					["angularls"] = function()
-						local util = require("lspconfig.util")
-						local lspconfig = require("lspconfig")
-						lspconfig.angularls.setup({
-							root_dir = util.root_pattern("angular.json", "project.json"),
 						})
 					end,
 					["denols"] = function()
