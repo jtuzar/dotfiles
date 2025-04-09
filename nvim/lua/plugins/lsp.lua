@@ -9,15 +9,19 @@ return {
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/nvim-cmp",
-			"L3MON4D3/LuaSnip",
+			{
+				"L3MON4D3/LuaSnip",
+				dependencies = { "rafamadriz/friendly-snippets" },
+				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
 			"saadparwaiz1/cmp_luasnip",
-			"j-hui/fidget.nvim",
 			"mfussenegger/nvim-lint",
 			"roobert/tailwindcss-colorizer-cmp.nvim",
 			"onsails/lspkind.nvim",
 		},
 		config = function()
-			require("fidget").setup({})
 			local cmp = require("cmp")
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			local lspkind_format = require("lspkind").cmp_format()
@@ -31,15 +35,16 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 					["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-					["<tab>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 					["<C-Space>"] = cmp.mapping.complete(),
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "luasnip" }, -- For luasnip users.
+					{ name = "luasnip" },
 				}, {
 					{ name = "buffer" },
 				}),
+
 				formatting = {
 					format = function(entry, item)
 						lspkind_format(entry, item)
@@ -60,8 +65,8 @@ return {
 					"ts_ls",
 					"tailwindcss",
 					"html",
-					"denols",
-                    "gopls"
+					"gopls",
+					"eslint",
 				},
 				handlers = {
 					function(server_name)
@@ -79,17 +84,22 @@ return {
 							},
 						})
 					end,
-					["denols"] = function()
-						local nvim_lsp = require("lspconfig")
-						nvim_lsp.denols.setup({
-							root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-						})
-					end,
 					["ts_ls"] = function()
 						local nvim_lsp = require("lspconfig")
 						nvim_lsp.ts_ls.setup({
 							root_dir = nvim_lsp.util.root_pattern("package.json"),
 							single_file_support = false,
+						})
+					end,
+					["eslint"] = function()
+						local nvim_lsp = require("lspconfig")
+						nvim_lsp.eslint.setup({
+							on_attach = function(_, bufnr)
+								vim.api.nvim_create_autocmd("BufWritePre", {
+									buffer = bufnr,
+									command = "EslintFixAll",
+								})
+							end,
 						})
 					end,
 				},
