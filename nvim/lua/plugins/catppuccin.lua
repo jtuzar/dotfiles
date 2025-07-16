@@ -8,7 +8,7 @@ return {
 				flavour = "auto",
 				background = { -- :h background
 					light = "latte",
-					dark = "mocha",
+					dark = "macchiato",
 				},
 				custom_highlights = function(colors)
 					return {
