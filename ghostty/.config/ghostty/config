@@ -1,0 +1,5 @@
+theme = dark:catppuccin-mocha,light:catppuccin-latte
+font-family = FiraCode Nerd Font
+font-size = 14
+
+keybind = shift+enter=text:\n

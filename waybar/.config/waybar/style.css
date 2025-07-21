@@ -1,0 +1,105 @@
+@import "./themes/tokyonight.css";
+
+/* Global */
+* {
+  font-family: FiraCode Nerd Font;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: shade(@base, 0.9);
+}
+
+@keyframes blink {
+  to {
+    color: @base;
+  }
+}
+
+.warning, .critical, .urgent {
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#mode, #clock, #memory, #cpu,
+#pulseaudio, #network,
+#battery, #tray, #disk {
+  padding-left: .6rem;
+  padding-right: .6rem;
+}
+
+/* Bar */
+window#waybar {
+  background-color: rgba(43, 48, 59, 0.5);
+}
+
+window > box {
+  background-color: transparent;
+  margin: .6rem;
+  margin-bottom: .5rem;
+}
+
+
+/* Workspaces */
+#workspaces:hover {
+  background-color: @green;
+}
+
+#workspaces button {
+  padding-right: .4rem;
+  padding-left: .4rem;
+  padding-top: .1rem;
+  padding-bottom: .1rem;
+  color: @blue;
+  /* border: .2px solid transparent; */
+  background: transparent;
+}
+
+#workspaces button.active {
+  color: @red;
+}
+
+#workspaces button:hover {
+  /* border: .2px solid transparent; */
+  color: @subtext0;
+}
+
+/* Tooltip */
+tooltip {
+  background-color: @base;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #7DCFFF;
+}
+
+tooltip label {
+  color: @text;
+}
+
+
+/* Extra */
+#memory {
+  color: @maroon;
+}
+#cpu {
+  color: @blue;
+}
+#clock {
+  color: @text;
+}
+#temperature {
+  color: @blue;
+}
+#pulseaudio {
+  color: @green;  /* not active */
+}
+#network {
+  color: @lavender; /* not active */
+}
+#network.disconnected {
+  color: @foreground;  /* not active */
+}
+#disk {
+  color: @teal;
+}
