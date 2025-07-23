@@ -1,8 +1,8 @@
-@import "./themes/tokyonight.css";
+@import "./themes/catppuccin.css";
 
 /* Global */
 * {
-  font-family: FiraCode Nerd Font;
+  font-family: Jetbrains Mono;
   font-size: 1rem;
   border-radius: 0.5rem;
   background-color: shade(@base, 0.9);
@@ -24,7 +24,7 @@
 
 #mode, #clock, #memory, #cpu,
 #pulseaudio, #network,
-#battery, #tray, #disk {
+#battery, #tray, #disk, #bluetooth {
   padding-left: .6rem;
   padding-right: .6rem;
 }
@@ -102,4 +102,7 @@ tooltip label {
 }
 #disk {
   color: @teal;
+}
+#bluetooth {
+  color: @sapphire
 }

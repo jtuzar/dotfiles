@@ -10,6 +10,7 @@
   ],
   "modules-right": [
     "pulseaudio",
+    "bluetooth",
     "network",
     "disk",
     "memory",
@@ -33,6 +34,15 @@
       "focused": "",
     }
   },
+  "bluetooth": {
+	"format": " {status}",
+	"format-connected": " {device_alias}",
+	"format-connected-battery": " {device_alias} {device_battery_percentage}%",
+	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  },
   "disk": {
     "interval": 30,
     "format": " {used}",
@@ -43,6 +53,7 @@
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "󰝟 Muted",
+    "on-click": "sleep 0.1 && pavucontrol",
     "format-icons": {
       "default": [
         "",
@@ -83,7 +94,7 @@
     "format-ethernet": "󰈀  {ifname} ({ipaddr})",
     "format-linked": " {essid} (No IP)",
     "format-disconnected": "󰖪 Disconnected",
-    "on-click": "sleep 0.1 && ghostty nmtui",
+    "on-click": "sleep 0.1 && ghostty --command=nmtui",
     "tooltip": true
   },
     /*

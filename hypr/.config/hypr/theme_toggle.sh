@@ -52,6 +52,21 @@ update_starship_theme() {
     fi
 }
 
+# Function to update Hyprland border colors
+update_hyprland_borders() {
+    local is_dark="$1"
+    
+    if [ "$is_dark" = "true" ]; then
+        # Mocha (dark) colors - peach active, yellow inactive
+        hyprctl keyword general:col.active_border "rgb(fab387)"
+        hyprctl keyword general:col.inactive_border "rgb(f9e2af)"
+    else
+        # Latte (light) colors - peach active, yellow inactive  
+        hyprctl keyword general:col.active_border "rgb(fe640b)"
+        hyprctl keyword general:col.inactive_border "rgb(df8e1d)"
+    fi
+}
+
 # Function to update dunst theme
 update_dunst_theme() {
     local is_dark="$1"
@@ -88,6 +103,7 @@ set_dark_theme() {
     update_gtk_configs "$DARK_THEME" "prefer-dark"
     update_starship_theme "true"
     update_dunst_theme "true"
+    update_hyprland_borders "true"
     darkman set dark
 
     if command -v notify-send >/dev/null 2>&1; then
@@ -102,6 +118,7 @@ set_light_theme() {
     update_gtk_configs "$LIGHT_THEME" "prefer-light"
     update_starship_theme "false"
     update_dunst_theme "false"
+    update_hyprland_borders "false"
     darkman set light
 
     if command -v notify-send >/dev/null 2>&1; then

@@ -28,7 +28,7 @@ $cmd_duration\
 $line_break\
 $character"""
 
-palette = 'catppuccin_mocha'
+palette = 'catppuccin_latte'
 
 [os]
 disabled = false
@@ -78,6 +78,7 @@ truncation_symbol = "…/"
 symbol = ""
 style = "bg:yellow"
 format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
+truncation_length = 30
 
 [git_status]
 style = "bg:yellow"
