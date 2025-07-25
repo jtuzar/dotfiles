@@ -57,13 +57,13 @@ update_hyprland_borders() {
     local is_dark="$1"
     
     if [ "$is_dark" = "true" ]; then
-        # Mocha (dark) colors - peach active, yellow inactive
-        hyprctl keyword general:col.active_border "rgb(fab387)"
-        hyprctl keyword general:col.inactive_border "rgb(f9e2af)"
+        # Mocha (dark) colors - green active, blue inactive
+        hyprctl keyword general:col.active_border "rgb(a6e3a1)"
+        hyprctl keyword general:col.inactive_border "rgb(89b4fa)"
     else
-        # Latte (light) colors - peach active, yellow inactive  
-        hyprctl keyword general:col.active_border "rgb(fe640b)"
-        hyprctl keyword general:col.inactive_border "rgb(df8e1d)"
+        # Latte (light) colors - green active, blue inactive  
+        hyprctl keyword general:col.active_border "rgb(40a02b)"
+        hyprctl keyword general:col.inactive_border "rgb(1e66f5)"
     fi
 }
 
