@@ -95,8 +95,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-vim.keymap.set('n', '<leader>pv', '<cmd>Explore<CR>', { desc = 'Open netrw' })
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
