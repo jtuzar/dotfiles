@@ -95,6 +95,18 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+vim.keymap.set('n', '<C-.>', vim.cmd.cnext)
+vim.keymap.set('n', '<C-,>', vim.cmd.cprev)
+vim.keymap.set('n', '<leader>p', 'o<esc>Pk<CR>')
+vim.keymap.set('n', '<leader><leader>', vim.cmd.so)
+vim.keymap.set('n', '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>Y', 'gg"+yG')
+
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv")
+vim.keymap.set('v', '<leader>p', '"_dP')
+vim.keymap.set('v', '<leader>y', '"+y')
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -127,8 +139,6 @@ rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-
-
 
   { import = 'plugins' },
 }, {

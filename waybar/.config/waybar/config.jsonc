@@ -53,7 +53,7 @@
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "󰝟 Muted",
-    "on-click": "sleep 0.1 && pavucontrol",
+    "on-click": "sleep 0.1 && pwvucontrol",
     "format-icons": {
       "default": [
         "",

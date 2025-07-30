@@ -19,3 +19,5 @@ keybind = ctrl+b>f=toggle_split_zoom
 keybind = ctrl+b>n=next_tab
 keybind = ctrl+b>p=previous_tab
 
+keybind = ctrl+alt+comma=open_config
+

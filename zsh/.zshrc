@@ -37,3 +37,4 @@ eval "$(starship init zsh)"
 if [[ -o interactive ]]; then
     fastfetch
 fi
+eval "$(/home/jakub/.local/bin/mise activate zsh)"
