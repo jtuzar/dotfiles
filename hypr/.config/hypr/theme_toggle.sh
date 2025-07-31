@@ -4,8 +4,8 @@
 # Toggles between dark and light themes using darkman
 # Ensures proper portal integration for GTK apps
 
-DARK_THEME="Catppuccin-Teal-Dark"
-LIGHT_THEME="Catppuccin-Teal-Light"
+DARK_THEME="Rosepine-Dark"
+LIGHT_THEME="Rosepine-Light"
 
 # Function to update GTK configurations
 update_gtk_configs() {
@@ -42,12 +42,16 @@ update_gtk_configs() {
 update_starship_theme() {
     local is_dark="$1"
 
-    local starship_config="$HOME/dotfiles/starship/.config/starship/starship.toml"
-    if [ -f "$starship_config" ]; then
-        if [ "$is_dark" = "true" ]; then
-            sed -i "s/palette = 'catppuccin_latte'/palette = 'catppuccin_mocha'/" "$starship_config"
-        else
-            sed -i "s/palette = 'catppuccin_mocha'/palette = 'catppuccin_latte'/" "$starship_config"
+    local starship_dir="$HOME/dotfiles/starship/.config/starship"
+    local starship_config="$starship_dir/starship.toml"
+    
+    if [ "$is_dark" = "true" ]; then
+        if [ -f "$starship_dir/rose-pine.toml" ]; then
+            cat "$starship_dir/rose-pine.toml" > "$starship_config"
+        fi
+    else
+        if [ -f "$starship_dir/rose-pine-dawn.toml" ]; then
+            cat "$starship_dir/rose-pine-dawn.toml" > "$starship_config"
         fi
     fi
 }
@@ -57,13 +61,13 @@ update_hyprland_borders() {
     local is_dark="$1"
     
     if [ "$is_dark" = "true" ]; then
-        # Mocha (dark) colors - green active, blue inactive
-        hyprctl keyword general:col.active_border "rgb(a6e3a1)"
-        hyprctl keyword general:col.inactive_border "rgb(89b4fa)"
+        # Rose Pine (dark) colors - foam active, iris inactive
+        hyprctl keyword general:col.active_border "rgb(9ccfd8)"
+        hyprctl keyword general:col.inactive_border "rgb(c4a7e7)"
     else
-        # Latte (light) colors - green active, blue inactive  
-        hyprctl keyword general:col.active_border "rgb(40a02b)"
-        hyprctl keyword general:col.inactive_border "rgb(1e66f5)"
+        # Rose Pine Dawn (light) colors - pine active, iris inactive  
+        hyprctl keyword general:col.active_border "rgb(286983)"
+        hyprctl keyword general:col.inactive_border "rgb(907aa9)"
     fi
 }
 

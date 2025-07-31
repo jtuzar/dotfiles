@@ -174,6 +174,7 @@ return {
         ts_ls = {},
         yamlls = {},
         eslint = {},
+        tailwindcss = {},
 
         ruby_lsp = {},
 
