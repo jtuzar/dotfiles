@@ -4,8 +4,8 @@
 # Toggles between dark and light themes using darkman
 # Ensures proper portal integration for GTK apps
 
-DARK_THEME="Rosepine-Dark"
-LIGHT_THEME="Rosepine-Light"
+DARK_THEME="Catppuccin-Yellow-Dark"
+LIGHT_THEME="Catppuccin-Yellow-Light"
 
 # Function to update GTK configurations
 update_gtk_configs() {
@@ -41,18 +41,14 @@ update_gtk_configs() {
 # Function to update starship theme
 update_starship_theme() {
     local is_dark="$1"
-
-    local starship_dir="$HOME/dotfiles/starship/.config/starship"
-    local starship_config="$starship_dir/starship.toml"
+    local starship_config="$HOME/dotfiles/starship/.config/starship/starship.toml"
     
     if [ "$is_dark" = "true" ]; then
-        if [ -f "$starship_dir/rose-pine.toml" ]; then
-            cat "$starship_dir/rose-pine.toml" > "$starship_config"
-        fi
+        # Use catppuccin_mocha for dark theme
+        sed -i "s/^palette = .*/palette = 'catppuccin_mocha'/" "$starship_config"
     else
-        if [ -f "$starship_dir/rose-pine-dawn.toml" ]; then
-            cat "$starship_dir/rose-pine-dawn.toml" > "$starship_config"
-        fi
+        # Use catppuccin_latte for light theme
+        sed -i "s/^palette = .*/palette = 'catppuccin_latte'/" "$starship_config"
     fi
 }
 
@@ -61,13 +57,13 @@ update_hyprland_borders() {
     local is_dark="$1"
     
     if [ "$is_dark" = "true" ]; then
-        # Rose Pine (dark) colors - foam active, iris inactive
-        hyprctl keyword general:col.active_border "rgb(9ccfd8)"
-        hyprctl keyword general:col.inactive_border "rgb(c4a7e7)"
+        # Catppuccin Mocha colors - yellow active, overlay1 inactive
+        hyprctl keyword general:col.active_border "rgb(f9e2af)"
+        hyprctl keyword general:col.inactive_border "rgb(7f849c)"
     else
-        # Rose Pine Dawn (light) colors - pine active, iris inactive  
-        hyprctl keyword general:col.active_border "rgb(286983)"
-        hyprctl keyword general:col.inactive_border "rgb(907aa9)"
+        # Catppuccin Latte colors - yellow active, overlay1 inactive  
+        hyprctl keyword general:col.active_border "rgb(df8e1d)"
+        hyprctl keyword general:col.inactive_border "rgb(8c8fa1)"
     fi
 }
 
@@ -77,24 +73,20 @@ update_dunst_theme() {
 
     if [ "$is_dark" = "true" ]; then
         # Mocha (dark) colors
-        sed -i '/# THEME_FRAME_COLOR/,+1 s/frame_color = .*/frame_color = "#89b4fa"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_LOW_BG/,+1 s/background = .*/background = "#1e1e2e"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_LOW_FG/,+1 s/foreground = .*/foreground = "#cdd6f4"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_NORMAL_BG/,+1 s/background = .*/background = "#1e1e2e"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_NORMAL_FG/,+1 s/foreground = .*/foreground = "#cdd6f4"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_CRITICAL_BG/,+1 s/background = .*/background = "#1e1e2e"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_CRITICAL_FG/,+1 s/foreground = .*/foreground = "#cdd6f4"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_CRITICAL_FRAME/,+1 s/frame_color = .*/frame_color = "#fab387"/' "$HOME/.config/dunst/dunstrc"
+        sed -i 's/background = "#eff1f5"/background = "#1e1e2e"/g' "$HOME/.config/dunst/dunstrc"
+        sed -i 's/foreground = "#4c4f69"/foreground = "#cdd6f4"/g' "$HOME/.config/dunst/dunstrc"
+        # Update all frame colors except critical
+        sed -i 's/frame_color = "#[^"]*"/frame_color = "#f9e2af"/g' "$HOME/.config/dunst/dunstrc"
+        # Set critical frame color to peach
+        sed -i '/\[urgency_critical\]/,/^\[/ s/frame_color = "#[^"]*"/frame_color = "#fab387"/' "$HOME/.config/dunst/dunstrc"
     else
         # Latte (light) colors
-        sed -i '/# THEME_FRAME_COLOR/,+1 s/frame_color = .*/frame_color = "#1e66f5"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_LOW_BG/,+1 s/background = .*/background = "#eff1f5"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_LOW_FG/,+1 s/foreground = .*/foreground = "#4c4f69"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_NORMAL_BG/,+1 s/background = .*/background = "#eff1f5"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_NORMAL_FG/,+1 s/foreground = .*/foreground = "#4c4f69"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_CRITICAL_BG/,+1 s/background = .*/background = "#eff1f5"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_CRITICAL_FG/,+1 s/foreground = .*/foreground = "#4c4f69"/' "$HOME/.config/dunst/dunstrc"
-        sed -i '/# THEME_URGENCY_CRITICAL_FRAME/,+1 s/frame_color = .*/frame_color = "#fe640b"/' "$HOME/.config/dunst/dunstrc"
+        sed -i 's/background = "#1e1e2e"/background = "#eff1f5"/g' "$HOME/.config/dunst/dunstrc"
+        sed -i 's/foreground = "#cdd6f4"/foreground = "#4c4f69"/g' "$HOME/.config/dunst/dunstrc"
+        # Update all frame colors except critical
+        sed -i 's/frame_color = "#[^"]*"/frame_color = "#df8e1d"/g' "$HOME/.config/dunst/dunstrc"
+        # Set critical frame color to peach
+        sed -i '/\[urgency_critical\]/,/^\[/ s/frame_color = "#[^"]*"/frame_color = "#fe640b"/' "$HOME/.config/dunst/dunstrc"
     fi
 
     killall dunst 2>/dev/null || true
