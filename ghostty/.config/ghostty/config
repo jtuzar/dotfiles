@@ -1,8 +1,9 @@
 theme = dark:catppuccin-mocha,light:catppuccin-latte
 font-family = Jetbrains Mono
 font-size = 14
-window-decoration = server
-window-save-state = always
+window-theme = system
+gtk-adwaita = true
+gtk-titlebar = true
 
 keybind = shift+enter=text:\n
 keybind = ctrl+shift+h=goto_split:left

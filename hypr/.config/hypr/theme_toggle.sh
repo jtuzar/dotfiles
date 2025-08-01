@@ -42,6 +42,15 @@ update_gtk_configs() {
         sed -i "s/gtk-theme-name=.*/gtk-theme-name=$theme/" "$config_file"
     done
 
+    # Update GTK4 symlinks
+    if [ -d "$HOME/.themes/$theme/gtk-4.0" ]; then
+        cd "$HOME/.config/gtk-4.0"
+        rm -f assets gtk.css gtk-dark.css 2>/dev/null
+        ln -sf "$HOME/.themes/$theme/gtk-4.0/assets" assets
+        ln -sf "$HOME/.themes/$theme/gtk-4.0/gtk.css" gtk.css  
+        ln -sf "$HOME/.themes/$theme/gtk-4.0/gtk-dark.css" gtk-dark.css
+    fi
+
     # Update nwg-look config to prevent conflicts
     if [ -f "$HOME/.local/share/nwg-look/gsettings" ]; then
         sed -i "s/gtk-theme=.*/gtk-theme=$theme/" "$HOME/.local/share/nwg-look/gsettings"
