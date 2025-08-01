@@ -1,11 +1,11 @@
-@import "./themes/catppuccin.css";
+@import "./themes/catppuccin-latte.css";
 
 /* Global */
 * {
   font-family: Jetbrains Mono;
   font-size: 1rem;
   border-radius: 0.5rem;
-  background-color: shade(@base, 0.9);
+  background-color: @base;
 }
 
 @keyframes blink {
@@ -31,7 +31,7 @@
 
 /* Bar */
 window#waybar {
-  background-color: rgba(43, 48, 59, 0.5);
+  background-color: transparent;
 }
 
 window > box {
@@ -51,13 +51,13 @@ window > box {
   padding-left: .4rem;
   padding-top: .1rem;
   padding-bottom: .1rem;
-  color: @blue;
+  color: @overlay1;
   /* border: .2px solid transparent; */
   background: transparent;
 }
 
 #workspaces button.active {
-  color: @red;
+  color: @yellow;
 }
 
 #workspaces button:hover {
@@ -80,29 +80,37 @@ tooltip label {
 
 /* Extra */
 #memory {
-  color: @maroon;
+  color: @red;
 }
 #cpu {
-  color: @blue;
+  color: @peach;
 }
 #clock {
   color: @text;
+  padding-left: 0;
+}
+
+#custom-clock-icon {
+  color: @yellow;
+  padding-left: 0.6rem;
+  padding-right: 0.5rem;
+  margin-right: 0;
 }
 #temperature {
   color: @blue;
 }
 #pulseaudio {
-  color: @green;  /* not active */
+  color: @green;
 }
 #network {
-  color: @lavender; /* not active */
+  color: @mauve;
 }
 #network.disconnected {
   color: @foreground;  /* not active */
 }
 #disk {
-  color: @teal;
+  color: @flamingo;
 }
 #bluetooth {
-  color: @sapphire
+  color: @blue;
 }

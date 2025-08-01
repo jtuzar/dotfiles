@@ -6,6 +6,7 @@
     "hyprland/workspaces",
   ],
   "modules-center": [
+    "custom/clock-icon",
     "clock",
   ],
   "modules-right": [
@@ -65,7 +66,7 @@
   },
   "clock": {
     "interval": 1,
-    "format": "<span foreground='#9ECE6A'>󰥔</span> {:%I:%M %p  %A %b %d}",
+    "format": "{:%I:%M %p  %A %b %d}",
     "tooltip": true,
     "tooltip-format": "{:%A, %d %B %Y}\n<tt>{calendar}</tt>",
     "calendar": {
@@ -105,6 +106,10 @@
     "format": " {temperatureC}°C"
   },
 */
+  "custom/clock-icon": {
+    "format": "󰥔",
+    "tooltip": false
+  },
   "tray": {
     "icon-size": 15,
     "spacing": 5

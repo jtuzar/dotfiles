@@ -7,6 +7,21 @@
 DARK_THEME="Catppuccin-Yellow-Dark"
 LIGHT_THEME="Catppuccin-Yellow-Light"
 
+# Path to catppuccin palette JSON
+PALETTE_JSON="$HOME/dotfiles/hypr/.config/hypr/catppuccin_palette.json"
+
+# Function to get color from palette JSON
+get_color() {
+    local theme="$1"
+    local color_name="$2"
+    
+    if [ "$theme" = "dark" ]; then
+        jq -r ".mocha.colors.$color_name.hex" "$PALETTE_JSON"
+    else
+        jq -r ".latte.colors.$color_name.hex" "$PALETTE_JSON"
+    fi
+}
+
 # Function to update GTK configurations
 update_gtk_configs() {
     local theme="$1"
@@ -40,10 +55,10 @@ update_gtk_configs() {
 
 # Function to update starship theme
 update_starship_theme() {
-    local is_dark="$1"
+    local theme="$1"
     local starship_config="$HOME/dotfiles/starship/.config/starship/starship.toml"
     
-    if [ "$is_dark" = "true" ]; then
+    if [ "$theme" = "dark" ]; then
         # Use catppuccin_mocha for dark theme
         sed -i "s/^palette = .*/palette = 'catppuccin_mocha'/" "$starship_config"
     else
@@ -54,81 +69,118 @@ update_starship_theme() {
 
 # Function to update Hyprland border colors
 update_hyprland_borders() {
-    local is_dark="$1"
+    local theme="$1"
+    local yellow_color=$(get_color "$theme" "yellow" | sed 's/#//')
+    local overlay1_color=$(get_color "$theme" "overlay1" | sed 's/#//')
     
-    if [ "$is_dark" = "true" ]; then
-        # Catppuccin Mocha colors - yellow active, overlay1 inactive
-        hyprctl keyword general:col.active_border "rgb(f9e2af)"
-        hyprctl keyword general:col.inactive_border "rgb(7f849c)"
-    else
-        # Catppuccin Latte colors - yellow active, overlay1 inactive  
-        hyprctl keyword general:col.active_border "rgb(df8e1d)"
-        hyprctl keyword general:col.inactive_border "rgb(8c8fa1)"
-    fi
+    # Yellow active, overlay1 inactive
+    hyprctl keyword general:col.active_border "rgb($yellow_color)"
+    hyprctl keyword general:col.inactive_border "rgb($overlay1_color)"
 }
 
 # Function to update dunst theme
 update_dunst_theme() {
-    local is_dark="$1"
+    local theme="$1"
+    local base_color=$(get_color "$theme" "base")
+    local text_color=$(get_color "$theme" "text")
+    local yellow_color=$(get_color "$theme" "yellow")
+    local peach_color=$(get_color "$theme" "peach")
 
-    if [ "$is_dark" = "true" ]; then
-        # Mocha (dark) colors
-        sed -i 's/background = "#eff1f5"/background = "#1e1e2e"/g' "$HOME/.config/dunst/dunstrc"
-        sed -i 's/foreground = "#4c4f69"/foreground = "#cdd6f4"/g' "$HOME/.config/dunst/dunstrc"
-        # Update all frame colors except critical
-        sed -i 's/frame_color = "#[^"]*"/frame_color = "#f9e2af"/g' "$HOME/.config/dunst/dunstrc"
-        # Set critical frame color to peach
-        sed -i '/\[urgency_critical\]/,/^\[/ s/frame_color = "#[^"]*"/frame_color = "#fab387"/' "$HOME/.config/dunst/dunstrc"
+    # Get opposite theme colors for replacement
+    if [ "$theme" = "dark" ]; then
+        local old_base_color=$(get_color "light" "base")
+        local old_text_color=$(get_color "light" "text")
     else
-        # Latte (light) colors
-        sed -i 's/background = "#1e1e2e"/background = "#eff1f5"/g' "$HOME/.config/dunst/dunstrc"
-        sed -i 's/foreground = "#cdd6f4"/foreground = "#4c4f69"/g' "$HOME/.config/dunst/dunstrc"
-        # Update all frame colors except critical
-        sed -i 's/frame_color = "#[^"]*"/frame_color = "#df8e1d"/g' "$HOME/.config/dunst/dunstrc"
-        # Set critical frame color to peach
-        sed -i '/\[urgency_critical\]/,/^\[/ s/frame_color = "#[^"]*"/frame_color = "#fe640b"/' "$HOME/.config/dunst/dunstrc"
+        local old_base_color=$(get_color "dark" "base")
+        local old_text_color=$(get_color "dark" "text")
     fi
+
+    # Update background and foreground colors
+    sed -i "s/background = \"$old_base_color\"/background = \"$base_color\"/g" "$HOME/.config/dunst/dunstrc"
+    sed -i "s/foreground = \"$old_text_color\"/foreground = \"$text_color\"/g" "$HOME/.config/dunst/dunstrc"
+    
+    # Update all frame colors except critical
+    sed -i "s/frame_color = \"#[^\"]*\"/frame_color = \"$yellow_color\"/g" "$HOME/.config/dunst/dunstrc"
+    
+    # Set critical frame color to peach
+    sed -i "/\\[urgency_critical\\]/,/^\\[/ s/frame_color = \"#[^\"]*\"/frame_color = \"$peach_color\"/" "$HOME/.config/dunst/dunstrc"
 
     killall dunst 2>/dev/null || true
 }
 
-# Function to set dark theme
-set_dark_theme() {
-    echo "Setting dark theme..."
+# Function to update waybar theme
+update_waybar_theme() {
+    local theme="$1"
+    local waybar_style="$HOME/.config/waybar/style.css"
+    
+    if [ "$theme" = "dark" ]; then
+        # Use catppuccin-mocha for dark theme
+        sed -i 's|@import "./themes/catppuccin.*\.css";|@import "./themes/catppuccin-mocha.css";|' "$waybar_style"
+    else
+        # Use catppuccin-latte for light theme
+        sed -i 's|@import "./themes/catppuccin.*\.css";|@import "./themes/catppuccin-latte.css";|' "$waybar_style"
+    fi
+    
+    # Restart waybar to apply changes
+    pkill waybar 2>/dev/null || true
+    sleep 0.2
+    waybar &
+}
 
-    update_gtk_configs "$DARK_THEME" "prefer-dark"
-    update_starship_theme "true"
-    update_dunst_theme "true"
-    update_hyprland_borders "true"
-    darkman set dark
+# Function to update bottom theme
+update_bottom_theme() {
+    local theme="$1"
+    local bottom_config="$HOME/.config/bottom/bottom.toml"
+    local themes_dir="$HOME/.config/bottom/themes"
+    
+    if [ "$theme" = "dark" ]; then
+        if [ -f "$themes_dir/mocha.toml" ]; then
+            cp "$themes_dir/mocha.toml" "$bottom_config"
+        fi
+    else
+        if [ -f "$themes_dir/latte.toml" ]; then
+            cp "$themes_dir/latte.toml" "$bottom_config"
+        fi
+    fi
+    
+    # Kill the ghostty terminal running btm
+    pkill -f "ghostty.*btm" 2>/dev/null || true
+    sleep 0.5
+    # Restart btm in the magic workspace
+    ~/.config/hypr/launch_btm.sh &
+}
+
+# Function to apply all theme updates
+apply_theme() {
+    local target_theme="$1"
+    
+    echo "Setting $target_theme theme..."
+    
+    if [ "$target_theme" = "dark" ]; then
+        update_gtk_configs "$DARK_THEME" "prefer-dark"
+    else
+        update_gtk_configs "$LIGHT_THEME" "prefer-light"
+    fi
+    
+    update_starship_theme "$target_theme"
+    update_dunst_theme "$target_theme"
+    update_hyprland_borders "$target_theme"
+    update_waybar_theme "$target_theme"
+    update_bottom_theme "$target_theme"
+    darkman set "$target_theme"
 
     if command -v notify-send >/dev/null 2>&1; then
-        notify-send "Theme Toggle" "Switched to dark theme" -t 2000
+        notify-send "Theme Toggle" "Switched to $target_theme theme" -t 2000
     fi
 }
 
-# Function to set light theme
-set_light_theme() {
-    echo "Setting light theme..."
+# Get current state from darkman and toggle
+current_theme=$(darkman get)
 
-    update_gtk_configs "$LIGHT_THEME" "prefer-light"
-    update_starship_theme "false"
-    update_dunst_theme "false"
-    update_hyprland_borders "false"
-    darkman set light
-
-    if command -v notify-send >/dev/null 2>&1; then
-        notify-send "Theme Toggle" "Switched to light theme" -t 2000
-    fi
-}
-
-# Get current state from darkman instead of state file
-current_state=$(darkman get)
-
-if [ "$current_state" = "dark" ]; then
-    set_light_theme
+if [ "$current_theme" = "dark" ]; then
+    apply_theme "light"
 else
-    set_dark_theme
+    apply_theme "dark"
 fi
 
 echo "Theme toggle complete. New state: $(darkman get)"
