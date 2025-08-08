@@ -22,3 +22,5 @@ keybind = ctrl+b>p=previous_tab
 
 keybind = ctrl+alt+comma=open_config
 
+# Unbind the default ctrl+comma to allow it to pass through to Neovim
+keybind = ctrl+comma=unbind

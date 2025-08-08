@@ -37,6 +37,8 @@ return { -- Autoformat
       html = { 'prettier' },
       jsx = { 'prettier' },
       tsx = { 'prettier' },
+      css = { 'prettier' },
+      svelte = { 'prettier' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --

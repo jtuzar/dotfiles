@@ -8,7 +8,7 @@ DARK_THEME="Catppuccin-Yellow-Dark"
 LIGHT_THEME="Catppuccin-Yellow-Light"
 
 # Path to catppuccin palette JSON
-PALETTE_JSON="$HOME/dotfiles/hypr/.config/hypr/catppuccin_palette.json"
+PALETTE_JSON="$HOME/dotfiles/catppuccin_palette.json"
 
 # Function to get color from palette JSON
 get_color() {
@@ -159,6 +159,16 @@ update_bottom_theme() {
     ~/.config/hypr/launch_btm.sh &
 }
 
+# Function to update clipse theme
+update_clipse_theme() {
+    local theme="$1"
+    local clipse_script="$HOME/.config/clipse/update_theme.sh"
+    
+    if [ -x "$clipse_script" ]; then
+        "$clipse_script" "$theme"
+    fi
+}
+
 # Function to apply all theme updates
 apply_theme() {
     local target_theme="$1"
@@ -176,6 +186,7 @@ apply_theme() {
     update_hyprland_borders "$target_theme"
     update_waybar_theme "$target_theme"
     update_bottom_theme "$target_theme"
+    update_clipse_theme "$target_theme"
     darkman set "$target_theme"
 
     if command -v notify-send >/dev/null 2>&1; then
