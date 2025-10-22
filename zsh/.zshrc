@@ -21,6 +21,7 @@ alias ls="ls -lah --color=auto"
 alias lzd="lazydocker"
 alias blt="bluetui"
 alias spt="spotify_player"
+alias ngs="ngrok http --url=learning-koala-pumped.ngrok-free.app"
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -30,7 +31,9 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 export NODE_OPTIONS="--max-old-space-size=8192"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
-[ -z "$DISABLE_ZOXIDE" ] && eval "$(zoxide init --cmd cd zsh)"
+if [[ -z "${CLAUDECODE}" ]]; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
 
 eval "$(starship init zsh)"
 

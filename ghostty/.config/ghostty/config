@@ -1,8 +1,7 @@
-theme = dark:catppuccin-mocha,light:catppuccin-latte
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
 font-family = Jetbrains Mono
 font-size = 14
 window-theme = system
-gtk-adwaita = true
 gtk-titlebar = true
 
 keybind = shift+enter=text:\n
