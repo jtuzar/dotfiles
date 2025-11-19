@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This hook is called with the snake-cased name of the theme that has just been set.
+# To put it into use, remove .sample from the name.
+
+# Example: Show the name of the theme that was just set.
+# notify-send "New theme" "Your new theme is $1"
+
+# Update clipse theme based on current system theme
+THEME_NAME="$1"
+CLIPSE_SCRIPT="$HOME/.config/clipse/update_theme.sh"
+
+if [[ "$THEME_NAME" == *"latte"* ]] || [[ "$THEME_NAME" == *"Latte"* ]]; then
+    "$CLIPSE_SCRIPT" light
+else
+    "$CLIPSE_SCRIPT" dark
+fi
