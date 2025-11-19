@@ -12,9 +12,7 @@ compinit
 # End of lines added by compinstall
 
 
-export GEM_HOME="/home/jakub/.local/share/gem/ruby/3.4.0"
 path+=('/home/jakub/.bin')
-path+=("$GEM_HOME/bin")
 
 alias vim="nvim"
 alias ls="ls -lah --color=auto"
@@ -40,7 +38,6 @@ eval "$(starship init zsh)"
 if [[ -o interactive ]]; then
     fastfetch
 fi
-eval "$(/home/jakub/.local/bin/mise activate zsh)"
 
 # pnpm
 export PNPM_HOME="/home/jakub/.local/share/pnpm"

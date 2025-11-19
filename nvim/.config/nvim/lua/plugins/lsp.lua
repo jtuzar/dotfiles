@@ -176,8 +176,6 @@ return {
         eslint = {},
         tailwindcss = {},
 
-        ruby_lsp = {},
-
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
