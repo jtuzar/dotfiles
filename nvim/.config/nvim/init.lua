@@ -101,11 +101,13 @@ vim.keymap.set('n', '<leader>p', 'o<esc>Pk<CR>')
 vim.keymap.set('n', '<leader><leader>', vim.cmd.so)
 vim.keymap.set('n', '<leader>y', '"+y')
 vim.keymap.set('n', '<leader>Y', 'gg"+yG')
+vim.keymap.set('n', '<c-h>', vim.lsp.buf.signature_help)
 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv")
 vim.keymap.set('v', '<leader>p', '"_dP')
 vim.keymap.set('v', '<leader>y', '"+y')
+
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -118,6 +120,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.hl.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Set C/C++ indentation to match .clang-format',
+  group = vim.api.nvim_create_augroup('cpp-indent', { clear = true }),
+  pattern = { 'c', 'cpp', 'h', 'hpp' },
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
   end,
 })
 
