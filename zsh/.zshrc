@@ -26,13 +26,14 @@ export NVM_DIR="$HOME/.config/nvm"
 
 
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
-export NODE_OPTIONS="--max-old-space-size=8192"
+export IS_OFFLINE=true #firefish specific env var
+export NODE_OPTIONS=--max-old-space-size=32768
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 if [[ -z "${CLAUDECODE}" ]]; then
   eval "$(zoxide init --cmd cd zsh)"
 fi
-
+eval "$(mise activate zsh)"
 eval "$(starship init zsh)"
 
 if [[ -o interactive ]]; then
