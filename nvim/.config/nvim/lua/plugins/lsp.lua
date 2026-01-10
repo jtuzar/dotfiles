@@ -198,7 +198,6 @@ return {
       'stylua',
       'prettier',
       'eslint_d',
-      'rubyfmt',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
