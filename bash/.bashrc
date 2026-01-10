@@ -6,7 +6,8 @@
 source ~/.local/share/omarchy/default/bash/rc
 
 # Add your own exports, aliases, and functions here.
-#
+alias ls='ls -lah --color=auto'
+
 # Make an alias for invoking commands you use constantly
 # alias p='python'
 export PATH="$HOME/.local/bin:$PATH"

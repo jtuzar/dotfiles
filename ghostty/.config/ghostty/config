@@ -1,9 +1,28 @@
-theme = dark:Catppuccin Mocha,light:Catppuccin Latte
-font-family = Jetbrains Mono
-font-size = 14
-window-theme = system
-gtk-titlebar = true
+# Dynamic theme colors
+config-file = ?"~/.config/omarchy/current/theme/ghostty.conf"
 
+# Font
+font-family = "JetBrainsMono Nerd Font"
+font-style = Regular
+font-size = 14
+
+# Window
+window-theme = ghostty
+window-padding-x = 14
+window-padding-y = 14
+confirm-close-surface=false
+resize-overlay = never
+gtk-toolbar-style = flat
+
+# Cursor styling
+cursor-style = "block"
+cursor-style-blink = false
+
+# Cursor styling + SSH session terminfo
+# (all shell integration options must be passed together)
+shell-integration-features = no-cursor,ssh-env
+
+# Keyboard bindings
 keybind = shift+enter=text:\n
 keybind = ctrl+shift+h=goto_split:left
 keybind = ctrl+shift+j=goto_split:bottom
@@ -14,12 +33,6 @@ keybind = ctrl+b>h=new_split:left
 keybind = ctrl+b>j=new_split:down
 keybind = ctrl+b>k=new_split:up
 keybind = ctrl+b>l=new_split:right
-keybind = ctrl+b>f=toggle_split_zoom
 
-keybind = ctrl+b>n=next_tab
-keybind = ctrl+b>p=previous_tab
-
-keybind = ctrl+alt+comma=open_config
-
-# Unbind the default ctrl+comma to allow it to pass through to Neovim
-keybind = ctrl+comma=unbind
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
