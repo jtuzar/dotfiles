@@ -13,6 +13,8 @@ compinit
 
 
 path+=('/home/jakub/.bin')
+path+=('/home/jakub/.cargo/bin')
+path+=('/home/jakub/.local/share/omarchy/bin')
 
 alias vim="nvim"
 alias ls="ls -lah --color=auto"
@@ -20,11 +22,12 @@ alias lzd="lazydocker"
 alias blt="bluetui"
 alias spt="spotify_player"
 alias ngs="ngrok http --url=learning-koala-pumped.ngrok-free.app"
+alias task="go-task"
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-
+export OMARCHY_PATH=$HOME/.local/share/omarchy
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 export IS_OFFLINE=true #firefish specific env var
 export NODE_OPTIONS=--max-old-space-size=32768
