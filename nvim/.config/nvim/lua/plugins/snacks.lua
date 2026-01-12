@@ -5,7 +5,11 @@ return {
     priority = 1000,
     ---@type snacks.Config
     opts = {
+      statuscolumn = {},
+      toggle = {},
+      notifier = {},
       lazygit = {},
+      gh = {},
       indent = {},
       image = {},
       picker = {
@@ -13,18 +17,20 @@ return {
           explorer = { hidden = true },
           grep = { hidden = true },
           files = { hidden = true },
+          gh_pr = {},
         },
       },
       explorer = {},
       dashboard = {
         preset = {
           header = [[
-        ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
-        ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z    
-        ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z       
-        ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         
-        ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║           
-        ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
+██╗    ██╗   ██╗███████╗███████╗    ██╗   ██╗██╗███╗   ███╗    ██████╗ ████████╗██╗    ██╗
+██║    ██║   ██║██╔════╝██╔════╝    ██║   ██║██║████╗ ████║    ██╔══██╗╚══██╔══╝██║    ██║
+██║    ██║   ██║███████╗█████╗      ██║   ██║██║██╔████╔██║    ██████╔╝   ██║   ██║ █╗ ██║
+██║    ██║   ██║╚════██║██╔══╝      ╚██╗ ██╔╝██║██║╚██╔╝██║    ██╔══██╗   ██║   ██║███╗██║
+██║    ╚██████╔╝███████║███████╗     ╚████╔╝ ██║██║ ╚═╝ ██║    ██████╔╝   ██║   ╚███╔███╔╝
+╚═╝     ╚═════╝ ╚══════╝╚══════╝      ╚═══╝  ╚═╝╚═╝     ╚═╝    ╚═════╝    ╚═╝    ╚══╝╚══╝ 
+                                                                                          
  ]],
           keys = {
             { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
@@ -177,20 +183,6 @@ return {
         desc = 'Git Log File',
       },
       -- gh
-      {
-        '<leader>gi',
-        function()
-          Snacks.picker.gh_issue()
-        end,
-        desc = 'GitHub Issues (open)',
-      },
-      {
-        '<leader>gI',
-        function()
-          Snacks.picker.gh_issue { state = 'all' }
-        end,
-        desc = 'GitHub Issues (all)',
-      },
       {
         '<leader>gp',
         function()
@@ -459,6 +451,9 @@ return {
   },
   {
     'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {},
     keys = {
       {
         '<leader>st',
