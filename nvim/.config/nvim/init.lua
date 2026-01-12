@@ -108,7 +108,6 @@ vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv")
 vim.keymap.set('v', '<leader>p', '"_dP')
 vim.keymap.set('v', '<leader>y', '"+y')
 
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -176,8 +175,6 @@ require('lazy').setup({
     },
   },
 })
-
-vim.cmd [[colorscheme catppuccin]]
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
