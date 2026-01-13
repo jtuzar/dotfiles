@@ -10,7 +10,7 @@ return {
         files = { hidden = true },
       },
     },
-    explorer = {},
+    explorer = { enabled = false },
     scroll = {
       enabled = false,
     },
