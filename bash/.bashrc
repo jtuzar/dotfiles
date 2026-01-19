@@ -8,6 +8,11 @@ source ~/.local/share/omarchy/default/bash/rc
 # Add your own exports, aliases, and functions here.
 alias ls='ls -lah --color=auto'
 
+# Show fastfetch on shell startup (TTY only)
+if [[ -t 1 ]] && command -v fastfetch >/dev/null 2>&1; then
+  fastfetch
+fi
+
 # Make an alias for invoking commands you use constantly
 # alias p='python'
 export PATH="$HOME/.local/bin:$PATH"
