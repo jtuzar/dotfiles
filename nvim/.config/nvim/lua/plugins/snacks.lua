@@ -5,12 +5,13 @@ return {
     image = {},
     picker = {
       sources = {
-        explorer = { hidden = true },
-        grep = { hidden = true },
-        files = { hidden = true },
+        explorer = {
+          hidden = true,
+          grep = { hidden = true },
+          files = { hidden = true },
+        },
       },
     },
-    explorer = { enabled = false },
     scroll = {
       enabled = false,
     },
@@ -28,4 +29,7 @@ return {
       }
     }
   },
+  keys = {
+    { "<leader>fe", function() Snacks.explorer() end, desc = "File Explorer" },
+  }
 }
