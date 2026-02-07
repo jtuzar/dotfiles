@@ -8,6 +8,9 @@ source ~/.local/share/omarchy/default/bash/rc
 # Add your own exports, aliases, and functions here.
 alias ls='ls -lah --color=auto'
 alias task='go-task'
+alias ffapil="cd ~/git/Firefish/packages/api/;mise exec -- yarn start --stage=dev-jakub-main;"
+alias ffappl="cd ~/git/Firefish/packages/app/;mise exec -- yarn start;"
+alias ffadminl="cd ~/git/Firefish/packages/admin/;mise exec -- yarn start;"
 
 # Show fastfetch on shell startup (TTY only)
 if [[ -t 1 ]] && command -v fastfetch >/dev/null 2>&1; then
