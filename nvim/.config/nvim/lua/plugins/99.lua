@@ -57,6 +57,7 @@ return {
       md_files = {
         "AGENT.md",
       },
+      model = "openai/gpt-5.2"
     })
 
     -- Create your own short cuts for the different types of actions
