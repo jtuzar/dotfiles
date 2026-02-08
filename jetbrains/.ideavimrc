@@ -1,0 +1,182 @@
+" IdeaVim config that mimics your Neovim (LazyVim + custom overrides).
+" Target: Rider / IntelliJ-based IDEs.
+
+" Leaders (matches LazyVim defaults)
+let mapleader=" "
+let maplocalleader="\\"
+
+" Core editor behavior (IdeaVim supports only a subset of Vim options)
+set clipboard=unnamedplus
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set scrolloff=4
+set sidescrolloff=8
+set number
+set relativenumber
+
+" Optional IdeaVim built-in emulations
+set surround
+set commentary
+set highlightedyank
+set which-key 
+set NERDTree
+
+" Escape clears search highlight (LazyVim-style)
+nnoremap <Esc> :nohlsearch<CR><Esc>
+
+" Save shortcuts
+nnoremap <leader>w :w<CR>
+nnoremap <leader>W :wa<CR>
+inoremap <C-s> <Esc>:w<CR>a
+vnoremap <C-s> <Esc>:w<CR>gv
+
+" Neovim override in your config: <C-h> = signature help
+" JetBrains equivalent: Parameter Info
+nnoremap <C-h> :action ParameterInfo<CR>
+
+" Window management
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wl <C-w>l
+nnoremap <leader>- <C-w>s
+nnoremap <leader>| <C-w>v
+nnoremap <leader>wd <C-w>c
+
+" Tabs / buffers (map to JetBrains editor tabs)
+nnoremap <S-h> :action PreviousEditorTab<CR>
+nnoremap <S-l> :action NextEditorTab<CR>
+nnoremap [b :action PreviousEditorTab<CR>
+nnoremap ]b :action NextEditorTab<CR>
+nnoremap <leader>bb :action Switcher<CR>
+nnoremap <leader>` :action Switcher<CR>
+nnoremap <leader>bd :action CloseEditor<CR>
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
+
+" File picker / search (LazyVim snacks/telescope-style)
+nnoremap <leader><space> :action GotoFile<CR>
+nnoremap <leader>ff :action GotoFile<CR>
+nnoremap <leader>fr :action RecentFiles<CR>
+nnoremap <leader>, :action RecentFiles<CR>
+nnoremap <leader>fb :action RecentFiles<CR>
+nnoremap <leader>/ :action FindInPath<CR>
+nnoremap <leader>sg :action FindInPath<CR>
+nnoremap <leader>sG :action FindInPath<CR>
+nnoremap <leader>sb :action Find<CR>
+nnoremap <leader>s/ :action FindInPath<CR>
+nnoremap <leader>: :action FindAction<CR>
+
+" Project explorer (LazyVim: <leader>e / <leader>fe)
+nnoremap <leader>e :action ActivateProjectToolWindow<CR>
+nnoremap <leader>E :action ActivateProjectToolWindow<CR>
+nnoremap <leader>fe :action ActivateProjectToolWindow<CR>
+nnoremap <leader>fE :action ActivateProjectToolWindow<CR>
+
+" Terminal (LazyVim: <leader>ft and <c-/> )
+nnoremap <leader>ft :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>fT :action ActivateTerminalToolWindow<CR>
+nnoremap <C-/> :action ActivateTerminalToolWindow<CR>
+nnoremap <C-_> :action ActivateTerminalToolWindow<CR>
+
+" Code navigation (LazyVim LSP-style)
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gI :action GotoImplementation<CR>
+nnoremap gy :action GotoTypeDeclaration<CR>
+nnoremap gr :action FindUsages<CR>
+nnoremap <leader>ss :action FileStructurePopup<CR>
+nnoremap <leader>sS :action GotoSymbol<CR>
+
+" Code actions / formatting (LazyVim-style)
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+nnoremap <leader>cf :action ReformatCode<CR>
+nnoremap <leader>co :action OptimizeImports<CR>
+nnoremap <leader>cr :action RenameElement<CR>
+nnoremap <leader>K :action QuickJavaDoc<CR>
+
+" Diagnostics / problems
+nnoremap <leader>cd :action ShowErrorDescription<CR>
+nnoremap ]d :action GotoNextError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+nnoremap ]q :action GotoNextError<CR>
+nnoremap [q :action GotoPreviousError<CR>
+nnoremap <leader>xq :action ActivateProblemsView<CR>
+nnoremap <leader>xl :action ActivateProblemsView<CR>
+nnoremap <leader>sd :action ActivateProblemsView<CR>
+
+" Git
+nnoremap <leader>gs :action ActivateVersionControlToolWindow<CR>
+nnoremap <leader>gl :action Vcs.ShowLog<CR>
+nnoremap <leader>gb :action Annotate<CR>
+
+" Match your custom Neovim leader mappings
+" - visual: paste without overwriting register
+vnoremap <leader>p "_dP
+" - normal: paste on a new line below
+nnoremap <leader>p o<Esc>Pk<CR>
+
+" System clipboard yanks
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
+" Commenting
+nnoremap gcc :action CommentByLineComment<CR>
+vnoremap gc <Esc>:action CommentByLineComment<CR>gv
+nnoremap gco o<Esc>:action CommentByLineComment<CR>
+nnoremap gcO O<Esc>:action CommentByLineComment<CR>
+
+" Visual move selected lines (your config)
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '>-2<CR>gv=gv
+
+" Move lines (LazyVim: <A-j>/<A-k>)
+nnoremap <A-j> :action MoveLineDown<CR>
+nnoremap <A-k> :action MoveLineUp<CR>
+inoremap <A-j> <Esc>:action MoveLineDown<CR>gi
+inoremap <A-k> <Esc>:action MoveLineUp<CR>gi
+vnoremap <A-j> <Esc>:action MoveLineDown<CR>gv
+vnoremap <A-k> <Esc>:action MoveLineUp<CR>gv
+
+" Harpoon-like (matches your Neovim custom ctrl mappings)
+" <C-a> add file, <C-s> show list, <C-j/k/l/;> jump to 1..4
+nnoremap <C-a> :action ToggleBookmarkWithMnemonic<CR>
+nnoremap <C-s> :action ShowBookmarks<CR>
+nnoremap <C-j> :action GotoBookmark1<CR>
+nnoremap <C-k> :action GotoBookmark2<CR>
+nnoremap <C-l> :action GotoBookmark3<CR>
+nnoremap <C-;> :action GotoBookmark4<CR>
+
+" Optional leader fallbacks for bookmark workflow
+nnoremap <leader>H :action ToggleBookmarkWithMnemonic<CR>
+nnoremap <leader>h :action ShowBookmarks<CR>
+nnoremap <leader>1 :action GotoBookmark1<CR>
+nnoremap <leader>2 :action GotoBookmark2<CR>
+nnoremap <leader>3 :action GotoBookmark3<CR>
+nnoremap <leader>4 :action GotoBookmark4<CR>
+nnoremap <leader>5 :action GotoBookmark5<CR>
+nnoremap <leader>6 :action GotoBookmark6<CR>
+nnoremap <leader>7 :action GotoBookmark7<CR>
+nnoremap <leader>8 :action GotoBookmark8<CR>
+nnoremap <leader>9 :action GotoBookmark9<CR>
+
+" Neovim plugin: ThePrimeagen/99 mappings
+" <leader>9f = fill function, <leader>9v = visual request, <leader>9s = stop requests
+nnoremap <leader>9f :action OpenInlineChatAction<CR>
+vnoremap <leader>9v :action OpenInlineChatAction<CR>
+nnoremap <leader>9s :action copilot.disposeInlays<CR>
+vnoremap <leader>9s :action copilot.disposeInlays<CR>
+
+" Debugging (LazyVim dap-style)
+nnoremap <leader>db :action ToggleLineBreakpoint<CR>
+nnoremap <leader>dB :action ViewBreakpoints<CR>
+nnoremap <leader>dc :action Resume<CR>
+nnoremap <leader>dO :action StepOver<CR>
+nnoremap <leader>di :action StepInto<CR>
+nnoremap <leader>do :action StepOut<CR>
+nnoremap <leader>dt :action Stop<CR>
+nnoremap <leader>du :action ActivateDebugToolWindow<CR>
+
+" Quit all
+nnoremap <leader>qq :action Exit<CR>
