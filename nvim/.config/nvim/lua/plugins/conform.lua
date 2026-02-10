@@ -2,7 +2,8 @@ return {
   "stevearc/conform.nvim",
   opts = {
     formatters_by_ft = {
-      cmake = { "gersemi" }
+      cmake = { "gersemi" },
+      gdscript = { "gdformat" }
     }
   }
 }

@@ -115,15 +115,6 @@ inoremap <A-k> <Esc>:action MoveLineUp<CR>gi
 vnoremap <A-j> <Esc>:action MoveLineDown<CR>gv
 vnoremap <A-k> <Esc>:action MoveLineUp<CR>gv
 
-" Harpoon-like (matches your Neovim custom ctrl mappings)
-" <C-a> add file, <C-s> show list, <C-j/k/l/;> jump to 1..4
-nnoremap <C-a> :action ToggleBookmarkWithMnemonic<CR>
-nnoremap <C-s> :action ShowBookmarks<CR>
-nnoremap <C-j> :action GotoBookmark1<CR>
-nnoremap <C-k> :action GotoBookmark2<CR>
-nnoremap <C-l> :action GotoBookmark3<CR>
-nnoremap <C-;> :action GotoBookmark4<CR>
-
 " Optional leader fallbacks for bookmark workflow
 nnoremap <leader>H :action ToggleBookmarkWithMnemonic<CR>
 nnoremap <leader>h :action ShowBookmarks<CR>
