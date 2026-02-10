@@ -19,6 +19,5 @@ if [[ -t 1 ]] && command -v fastfetch >/dev/null 2>&1; then
   fastfetch
 fi
 
-# Make an alias for invoking commands you use constantly
-# alias p='python'
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/git/Odin:$PATH"
