@@ -22,3 +22,6 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/git/Odin:$PATH"
 export PATH="$HOME/git/ols:$PATH"
+source "/home/jakub/.rover/env"
+. "/home/jakub/.deno/env"
+source /home/jakub/.local/share/bash-completion/completions/deno.bash

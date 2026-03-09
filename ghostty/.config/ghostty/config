@@ -36,3 +36,6 @@ keybind = ctrl+b>l=new_split:right
 
 # Slowdown mouse scrolling
 mouse-scroll-multiplier = 0.95
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll
