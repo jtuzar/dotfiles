@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
+  "mcp": {
+    "shortcut": {
+      "type": "local",
+      "command": ["npx", "-y", "@shortcut/mcp@latest"],
+      "environment": {
+        "SHORTCUT_API_TOKEN": "{env:SHORTCUT_API_TOKEN}"
+      }
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "{file:~/secrets/context7.txt}"
+      },
+      "enabled": true
+    }
+  }
+}
