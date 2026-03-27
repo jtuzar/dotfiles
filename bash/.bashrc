@@ -13,6 +13,8 @@ alias ffappl="cd ~/git/Firefish/packages/app/;mise exec -- yarn start;"
 alias ffadminl="cd ~/git/Firefish/packages/admin/;mise exec -- yarn start;"
 alias dn="~/notebook/scripts/create-daily-note.sh"
 alias qn="~/notebook/scripts/create-quick-note.sh"
+alias oc="opencode"
+alias occ="opencode --continue"
 
 # Show fastfetch on shell startup (TTY only)
 if [[ -t 1 ]] && command -v fastfetch >/dev/null 2>&1; then
