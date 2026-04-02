@@ -1,0 +1,41 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true,
+    "ai@pydantic-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "pydantic-skills": {
+      "source": {
+        "source": "github",
+        "repo": "pydantic/skills"
+      }
+    },
+    "temporal-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "temporalio/agent-skills"
+      }
+    }
+  },
+  "mcpServers": {
+    "context7": {
+      "type": "url",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "mermaid": {
+      "command": "npx",
+      "args": ["-y", "mcp-mermaid"]
+    },
+    "shortcut": {
+      "command": "npx",
+      "args": ["-y", "@shortcut/mcp@latest"],
+      "env": {
+        "SHORTCUT_API_TOKEN": "${SHORTCUT_API_TOKEN}"
+      }
+    }
+  }
+}
