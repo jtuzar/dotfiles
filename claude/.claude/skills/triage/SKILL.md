@@ -125,7 +125,7 @@ Personal task app integration is not yet configured. For now, present personal t
 Create or append via obsidian CLI:
 ```bash
 # New note
-obsidian create path="Knowledge/Note Title.md" content="---\ntags: work, firefish\n---\n\n# Note Title\n\nContent here"
+obsidian create path="Knowledge/Note Title.md" content="---\ntags:\n  - work\n  - firefish\n---\n\n# Note Title\n\nContent here"
 
 # Append to existing
 obsidian append path="Knowledge/Existing Note.md" content="\n## New Section\n\nContent here"
@@ -134,7 +134,7 @@ obsidian append path="Knowledge/Existing Note.md" content="\n## New Section\n\nC
 **📐 Plans → vault:**
 Same as knowledge but in `Plans/`:
 ```bash
-obsidian create path="Plans/Plan Title.md" content="---\ntags: work, firefish\n---\n\n# Plan Title\n\nContent here"
+obsidian create path="Plans/Plan Title.md" content="---\ntags:\n  - work\n  - firefish\n---\n\n# Plan Title\n\nContent here"
 ```
 
 **🔗 References → vault:**
