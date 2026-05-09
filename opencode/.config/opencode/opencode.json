@@ -19,12 +19,20 @@
     "mermaid": {
       "enabled": false,
       "type": "local",
-      "command": ["npx", "-y", "mcp-mermaid"]
+      "command": [
+        "npx",
+        "-y",
+        "mcp-mermaid"
+      ]
     },
     "shortcut": {
       "enabled": false,
       "type": "local",
-      "command": ["npx", "-y", "@shortcut/mcp@latest"],
+      "command": [
+        "npx",
+        "-y",
+        "@shortcut/mcp@latest"
+      ],
       "environment": {
         "SHORTCUT_API_TOKEN": "{env:SHORTCUT_API_TOKEN}"
       }
@@ -32,6 +40,7 @@
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
       "headers": {
         "CONTEXT7_API_KEY": "{file:~/secrets/context7.txt}"
       },
