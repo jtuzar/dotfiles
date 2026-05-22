@@ -1,17 +1,28 @@
 return {
   "stevearc/conform.nvim",
   opts = {
+    formatters = {
+      odinfmt = {
+        command = "odinfmt",
+        args = { "-stdin" },
+        stdin = true,
+      },
+    },
     formatters_by_ft = {
       cmake = { "gersemi" },
       gdscript = { "gdformat" },
+      odin = { "odinfmt" },
       python = {
-        -- To fix auto-fixable lint errors.
         "ruff_fix",
-        -- To run the Ruff formatter.
         "ruff_format",
-        -- To organize the imports.
         "ruff_organize_imports",
       },
+      javascript = { "oxfmt" },
+      javascriptreact = { "oxfmt" },
+      typescript = { "oxfmt" },
+      typescriptreact = { "oxfmt" },
+      json = { "oxfmt" },
+      vue = { "oxfmt" },
     },
   },
 }

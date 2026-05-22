@@ -11,3 +11,5 @@ vim.filetype.add({
     fxh = "hlsl",
   },
 })
+
+vim.g.root_spec = { { ".git" }, "lsp", "cwd" }

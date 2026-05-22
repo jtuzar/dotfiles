@@ -77,9 +77,7 @@ nnoremap ]d :action GotoNextError<CR>
 nnoremap [d :action GotoPreviousError<CR>
 nnoremap ]q :action GotoNextError<CR>
 nnoremap [q :action GotoPreviousError<CR>
-nnoremap <leader>xq :action ActivateProblemsView<CR>
-nnoremap <leader>xl :action ActivateProblemsView<CR>
-nnoremap <leader>sd :action ActivateProblemsView<CR>
+nnoremap <leader>xx :action ActivateProblemsView<CR>
 
 " Git
 nnoremap <leader>gs :action ActivateVersionControlToolWindow<CR>
@@ -91,6 +89,8 @@ nnoremap <leader>gb :action Annotate<CR>
 vnoremap <leader>p "_dP
 " - normal: paste on a new line below
 nnoremap <leader>p o<Esc>Pk<CR>
+
+nnoremap <leader>sw viw:action FindInPath<CR>
 
 " System clipboard yanks
 nnoremap <leader>y "+y
@@ -127,23 +127,6 @@ nnoremap <leader>6 :action GotoBookmark6<CR>
 nnoremap <leader>7 :action GotoBookmark7<CR>
 nnoremap <leader>8 :action GotoBookmark8<CR>
 nnoremap <leader>9 :action GotoBookmark9<CR>
-
-" Neovim plugin: ThePrimeagen/99 mappings
-" <leader>9f = fill function, <leader>9v = visual request, <leader>9s = stop requests
-nnoremap <leader>9f :action OpenInlineChatAction<CR>
-vnoremap <leader>9v :action OpenInlineChatAction<CR>
-nnoremap <leader>9s :action copilot.disposeInlays<CR>
-vnoremap <leader>9s :action copilot.disposeInlays<CR>
-
-" Debugging (LazyVim dap-style)
-nnoremap <leader>db :action ToggleLineBreakpoint<CR>
-nnoremap <leader>dB :action ViewBreakpoints<CR>
-nnoremap <leader>dc :action Resume<CR>
-nnoremap <leader>dO :action StepOver<CR>
-nnoremap <leader>di :action StepInto<CR>
-nnoremap <leader>do :action StepOut<CR>
-nnoremap <leader>dt :action Stop<CR>
-nnoremap <leader>du :action ActivateDebugToolWindow<CR>
 
 " Quit all
 nnoremap <leader>qq :action Exit<CR>

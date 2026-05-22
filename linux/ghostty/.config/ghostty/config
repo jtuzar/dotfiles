@@ -24,6 +24,7 @@ shell-integration-features = no-cursor,ssh-env
 
 # Keyboard bindings
 keybind = shift+enter=text:\n
+
 keybind = ctrl+shift+h=goto_split:left
 keybind = ctrl+shift+j=goto_split:bottom
 keybind = ctrl+shift+k=goto_split:top
@@ -36,3 +37,6 @@ keybind = ctrl+b>l=new_split:right
 
 # Slowdown mouse scrolling
 mouse-scroll-multiplier = 0.95
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll

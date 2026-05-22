@@ -15,3 +15,8 @@ if [[ "$THEME_NAME" == *"latte"* ]] || [[ "$THEME_NAME" == *"Latte"* ]]; then
 else
     "$CLIPSE_SCRIPT" dark
 fi
+
+# Re-disable internal monitor if lid is closed (hyprctl reload re-enables it)
+if grep -q "closed" /proc/acpi/button/lid/LID/state 2>/dev/null; then
+    hyprctl keyword monitor "eDP-1, disable"
+fi
