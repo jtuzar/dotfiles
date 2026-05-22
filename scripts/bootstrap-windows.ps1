@@ -41,12 +41,53 @@ if (Test-Path $PwshProfileSource)
   New-Symlink -Source $PwshProfileSource -Target $PwshProfileTarget
 }
 
-$WtSettingsSource = Join-Path $DotfilesDir "windows\windows-terminal\settings.json"
-$WtSettingsTarget = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$WezSource = Join-Path $DotfilesDir "windows\wezterm\.wezterm.lua"
+$WezTarget = Join-Path $HOME ".wezterm.lua"
 
-if (Test-Path $WtSettingsSource)
+if (Test-Path $WezSource)
 {
-  New-Symlink -Source $WtSettingsSource -Target $WtSettingsTarget
+  New-Symlink -Source $WezSource -Target $WezTarget
+}
+
+function New-AppShortcut
+{
+  param(
+    [Parameter(Mandatory = $true)][string]$Path,
+    [Parameter(Mandatory = $true)][string]$Target,
+    [Parameter(Mandatory = $true)][string]$Arguments,
+    [string]$WorkingDirectory = ""
+  )
+
+  $Parent = Split-Path -Parent $Path
+  if (-not (Test-Path $Parent))
+  {
+    New-Item -ItemType Directory -Path $Parent -Force | Out-Null
+  }
+
+  $Shell = New-Object -ComObject WScript.Shell
+  $Shortcut = $Shell.CreateShortcut($Path)
+  $Shortcut.TargetPath = $Target
+  $Shortcut.Arguments = $Arguments
+  if ($WorkingDirectory) { $Shortcut.WorkingDirectory = $WorkingDirectory }
+  $Shortcut.IconLocation = $Target
+  $Shortcut.Save()
+  Write-Host "Shortcut $Path -> $Target $Arguments"
+}
+
+$WezGui = "C:\Program Files\WezTerm\wezterm-gui.exe"
+if (Test-Path $WezGui)
+{
+  $StartPrograms = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs"
+
+  New-AppShortcut `
+    -Path (Join-Path $StartPrograms "WezTerm WSL.lnk") `
+    -Target $WezGui `
+    -Arguments "start --always-new-process -- wsl.exe --cd ~"
+
+  New-AppShortcut `
+    -Path (Join-Path $StartPrograms "WezTerm PowerShell.lnk") `
+    -Target $WezGui `
+    -Arguments "start --always-new-process -- pwsh.exe -NoLogo"
 }
 
 $WinRoot = Join-Path $DotfilesDir "windows"

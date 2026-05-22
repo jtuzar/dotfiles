@@ -25,4 +25,7 @@ stow_package_dir() {
 stow_package_dir "shared"
 stow_package_dir "linux"
 
+# Per-machine bash overrides — sourced by ~/.bashrc, never committed.
+touch "$HOME/.bashrc.local"
+
 echo "Done."
