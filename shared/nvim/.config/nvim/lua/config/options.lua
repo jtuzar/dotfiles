@@ -3,4 +3,13 @@
 -- Add any additional options here
 vim.opt.relativenumber = true
 
+vim.filetype.add({
+  extension = {
+    hlsl = "hlsl",
+    hlsli = "hlsl",
+    fx = "hlsl",
+    fxh = "hlsl",
+  },
+})
+
 vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
