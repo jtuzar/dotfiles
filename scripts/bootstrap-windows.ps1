@@ -31,6 +31,17 @@ $NvimTarget = Join-Path $env:LOCALAPPDATA "nvim"
 
 New-Symlink -Source $NvimSource -Target $NvimTarget
 
+# shared\AGENTS.md is the single source of truth shared across agents.
+# Windows can't reliably check out the in-repo symlinks, so point each tool's
+# expected path directly at the real shared\AGENTS.md.
+$AgentsSource = Join-Path $DotfilesDir "shared\AGENTS.md"
+if (Test-Path $AgentsSource)
+{
+  New-Symlink -Source $AgentsSource -Target (Join-Path $HOME ".claude\CLAUDE.md")
+  New-Symlink -Source $AgentsSource -Target (Join-Path $HOME ".codex\AGENTS.md")
+  New-Symlink -Source $AgentsSource -Target (Join-Path $HOME ".config\opencode\AGENTS.md")
+}
+
 
 
 $PwshProfileSource = Join-Path $DotfilesDir "windows\powershell\Microsoft.PowerShell_profile.ps1"

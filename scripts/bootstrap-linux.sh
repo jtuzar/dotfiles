@@ -22,6 +22,11 @@ stow_package_dir() {
   done < <(find "$package_root" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
 }
 
+# Ensure tool config dirs exist as real directories first, so stow links the
+# individual AGENTS.md files into them instead of folding the whole directory
+# into a single symlink pointing back into this repo.
+mkdir -p "$HOME/.claude" "$HOME/.codex" "$HOME/.config/opencode"
+
 stow_package_dir "shared"
 stow_package_dir "linux"
 

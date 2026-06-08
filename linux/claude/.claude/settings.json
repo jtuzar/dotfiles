@@ -56,7 +56,8 @@
       "autoUpdate": true
     }
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
@@ -65,6 +66,5 @@
   "theme": "auto",
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "tui": "fullscreen"
+  "voiceEnabled": true
 }
