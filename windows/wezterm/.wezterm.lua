@@ -23,8 +23,8 @@ config.hide_tab_bar_if_only_one_tab = true
 config.default_cursor_style = "SteadyBlock"
 config.cursor_blink_rate = 0
 
--- Default shell: WSL (launches the default distribution)
-config.default_prog = { "wsl.exe", "--cd", "~" }
+-- Default shell: PowerShell 7. Use the dedicated shortcut for WSL.
+config.default_prog = { "pwsh.exe", "-NoLogo" }
 
 -- Slow down mouse scrolling to match ghostty's 0.95 multiplier
 local function scroll_lines(n)

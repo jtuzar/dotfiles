@@ -19,11 +19,27 @@ function New-Symlink
 
   if (Test-Path $Target)
   {
-    Remove-Item -Path $Target -Recurse -Force
+    Remove-Item -LiteralPath $Target -Recurse -Force
   }
 
-  New-Item -ItemType SymbolicLink -Path $Target -Target $Source | Out-Null
-  Write-Host "Linked $Target -> $Source"
+  try
+  {
+    New-Item -ItemType SymbolicLink -Path $Target -Target $Source -ErrorAction Stop | Out-Null
+    Write-Host "Linked $Target -> $Source"
+  }
+  catch [System.UnauthorizedAccessException]
+  {
+    if (Test-Path $Source -PathType Container)
+    {
+      New-Item -ItemType Junction -Path $Target -Target $Source | Out-Null
+      Write-Host "Junction $Target -> $Source"
+    }
+    else
+    {
+      New-Item -ItemType HardLink -Path $Target -Target $Source | Out-Null
+      Write-Host "Hard linked $Target -> $Source"
+    }
+  }
 }
 
 $NvimSource = Join-Path $DotfilesDir "shared\nvim\.config\nvim"
@@ -60,6 +76,14 @@ if (Test-Path $WezSource)
   New-Symlink -Source $WezSource -Target $WezTarget
 }
 
+$GlazeWmSource = Join-Path $DotfilesDir "windows\glazewm\config.yaml"
+$GlazeWmTarget = Join-Path $HOME ".glzr\glazewm\config.yaml"
+
+if (Test-Path $GlazeWmSource)
+{
+  New-Symlink -Source $GlazeWmSource -Target $GlazeWmTarget
+}
+
 function New-AppShortcut
 {
   param(
@@ -85,20 +109,78 @@ function New-AppShortcut
   Write-Host "Shortcut $Path -> $Target $Arguments"
 }
 
+function Get-VsDevCmd
+{
+  $VsWhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+  if (Test-Path $VsWhere)
+  {
+    $InstallPath = & $VsWhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+    if ($InstallPath)
+    {
+      $VsDevCmd = Join-Path $InstallPath "Common7\Tools\VsDevCmd.bat"
+      if (Test-Path $VsDevCmd) { return $VsDevCmd }
+    }
+  }
+
+  $KnownRoots = @(
+    "${env:ProgramFiles}\Microsoft Visual Studio\2022\Community",
+    "${env:ProgramFiles}\Microsoft Visual Studio\2022\Professional",
+    "${env:ProgramFiles}\Microsoft Visual Studio\2022\Enterprise",
+    "${env:ProgramFiles}\Microsoft Visual Studio\2022\BuildTools"
+  )
+
+  foreach ($Root in $KnownRoots)
+  {
+    if (-not $Root) { continue }
+    $VsDevCmd = Join-Path $Root "Common7\Tools\VsDevCmd.bat"
+    if (Test-Path $VsDevCmd) { return $VsDevCmd }
+  }
+
+  return $null
+}
+
 $WezGui = "C:\Program Files\WezTerm\wezterm-gui.exe"
 if (Test-Path $WezGui)
 {
   $StartPrograms = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs"
+  $VsDevCmd = Get-VsDevCmd
 
-  New-AppShortcut `
-    -Path (Join-Path $StartPrograms "WezTerm WSL.lnk") `
-    -Target $WezGui `
-    -Arguments "start --always-new-process -- wsl.exe --cd ~"
+  $WezShortcuts = @(
+    @{
+      Name = "WezTerm PowerShell.lnk"
+      Arguments = "start --always-new-process -- pwsh.exe -NoLogo"
+    },
+    @{
+      Name = "WezTerm WSL.lnk"
+      Arguments = "start --always-new-process -- wsl.exe --cd ~"
+    }
+  )
 
-  New-AppShortcut `
-    -Path (Join-Path $StartPrograms "WezTerm PowerShell.lnk") `
-    -Target $WezGui `
-    -Arguments "start --always-new-process -- pwsh.exe -NoLogo"
+  if ($VsDevCmd)
+  {
+    $MsvcPwsh = Join-Path $DotfilesDir "windows\wezterm\msvc-x64-pwsh.cmd"
+    $WezShortcuts[0].Arguments = "start --always-new-process -- cmd.exe /k `"$MsvcPwsh`""
+    $WezShortcuts += @{
+      Name = "WezTerm MSVC x64 PowerShell.lnk"
+      Arguments = "start --always-new-process -- cmd.exe /k `"$MsvcPwsh`""
+    }
+    $WezShortcuts += @{
+      Name = "WezTerm Plain PowerShell.lnk"
+      Arguments = "start --always-new-process -- pwsh.exe -NoLogo"
+    }
+  }
+  else
+  {
+    Write-Warning "Visual Studio x64 C++ tools were not found; skipping WezTerm MSVC shortcut."
+  }
+
+  foreach ($Shortcut in $WezShortcuts)
+  {
+    New-AppShortcut `
+      -Path (Join-Path $StartPrograms $Shortcut.Name) `
+      -Target $WezGui `
+      -Arguments $Shortcut.Arguments
+  }
 }
 
 $WinRoot = Join-Path $DotfilesDir "windows"
