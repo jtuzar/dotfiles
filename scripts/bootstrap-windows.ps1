@@ -47,6 +47,14 @@ $NvimTarget = Join-Path $env:LOCALAPPDATA "nvim"
 
 New-Symlink -Source $NvimSource -Target $NvimTarget
 
+$IdeaVimSource = Join-Path $DotfilesDir "shared\jetbrains\.ideavimrc"
+$IdeaVimTarget = Join-Path $HOME ".ideavimrc"
+
+if (Test-Path $IdeaVimSource)
+{
+  New-Symlink -Source $IdeaVimSource -Target $IdeaVimTarget
+}
+
 # shared\AGENTS.md is the single source of truth shared across agents.
 # Windows can't reliably check out the in-repo symlinks, so point each tool's
 # expected path directly at the real shared\AGENTS.md.

@@ -4,6 +4,7 @@ Place Windows-only stow-style packages in this directory.
 
 The bootstrap script links:
 - shared Neovim config from `shared/nvim` into `%LOCALAPPDATA%\\nvim`
+- shared IdeaVim config from `shared/jetbrains/.ideavimrc` into `%USERPROFILE%\\.ideavimrc`
 - PowerShell profile into `%USERPROFILE%\\Documents\\PowerShell`
 - WezTerm config (`windows/wezterm/.wezterm.lua`) into `%USERPROFILE%\\.wezterm.lua`
 - GlazeWM config (`windows/glazewm/config.yaml`) into `%USERPROFILE%\\.glzr\\glazewm\\config.yaml`
