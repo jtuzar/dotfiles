@@ -66,5 +66,10 @@
   "theme": "auto",
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "permissions": {
+    "allow": [
+      "Bash(rg:*)"
+    ]
+  }
 }
