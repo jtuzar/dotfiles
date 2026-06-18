@@ -17,12 +17,6 @@ return {
         "ruff_format",
         "ruff_organize_imports",
       },
-      javascript = { "oxfmt" },
-      javascriptreact = { "oxfmt" },
-      typescript = { "oxfmt" },
-      typescriptreact = { "oxfmt" },
-      json = { "oxfmt" },
-      vue = { "oxfmt" },
     },
   },
 }
