@@ -69,7 +69,7 @@ nnoremap <leader>ca :action ShowIntentionActions<CR>
 nnoremap <leader>cf :action ReformatCode<CR>
 nnoremap <leader>co :action OptimizeImports<CR>
 nnoremap <leader>cr :action RenameElement<CR>
-nnoremap <leader>K :action QuickJavaDoc<CR>
+nnoremap <leader>K :action ShowHoverInfo<CR>
 
 " Diagnostics / problems
 nnoremap <leader>cd :action ShowErrorDescription<CR>

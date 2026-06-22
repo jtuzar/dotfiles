@@ -27,10 +27,14 @@ return {
     image = {},
     picker = {
       sources = {
+        files = {
+          hidden = true,
+        },
+        grep = {
+          hidden = true,
+        },
         explorer = {
           hidden = true,
-          grep = { hidden = true },
-          files = { hidden = true },
         },
       },
     },

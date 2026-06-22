@@ -5,10 +5,13 @@ vim.opt.relativenumber = true
 
 vim.filetype.add({
   extension = {
-    hlsl = "hlsl",
+    hlsl  = "hlsl",
     hlsli = "hlsl",
-    fx = "hlsl",
-    fxh = "hlsl",
+  },
+  pattern = {
+    [".*%.vert%.hlsl"] = "hlsl",
+    [".*%.frag%.hlsl"] = "hlsl",
+    [".*%.comp%.hlsl"] = "hlsl",
   },
 })
 
